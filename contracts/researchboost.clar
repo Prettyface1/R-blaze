@@ -120,3 +120,4 @@
         )
     )
 )
+(define-constant ERR-UNAUTHORIZED (err u100))
