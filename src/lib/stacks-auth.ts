@@ -4,3 +4,7 @@ export const userSession = new UserSession({ appConfig });
 export const authenticate = () => {
   showConnect({
     appDetails: { name: 'R-blaze', icon: '/logo.png' },
+    onFinish: () => window.location.reload(),
+    userSession,
+  });
+};
