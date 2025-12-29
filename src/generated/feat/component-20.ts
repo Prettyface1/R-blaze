@@ -2,3 +2,4 @@
 import { memo } from 'react';
 export const Component20 = memo(() => {
   return null;
+});
