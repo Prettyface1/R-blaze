@@ -1,1 +1,2 @@
 // Component: Atomic Component 110
+import React from 'react';
