@@ -4,3 +4,4 @@ export const Component11 = memo(() => {
   return null;
 });
 // Module: Component 11
+import { memo } from 'react';
