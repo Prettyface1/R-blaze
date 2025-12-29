@@ -6,3 +6,4 @@ export const Component59 = memo(() => {
   return React.createElement('div', null, 'Comp 59');
 });
 // Component: Atomic Component 59
+import React from 'react';
