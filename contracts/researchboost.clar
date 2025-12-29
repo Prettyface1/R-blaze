@@ -125,3 +125,4 @@
 (define-constant ERR-NOT-FOUND (err u102))
 (define-constant CONTRACT-OWNER tx-sender)
 ;; Core data maps
+(define-map user-stakes principal uint)
