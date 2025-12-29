@@ -1,2 +1,3 @@
 // Component: Atomic Component 80
 import React from 'react';
+import { memo } from 'react';
