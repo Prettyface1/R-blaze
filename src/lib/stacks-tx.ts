@@ -6,3 +6,6 @@ export const contributeToResearch = async (amount: number) => {
     contractName: 'R-blaze',
     functionName: 'fund-project',
     functionArgs: [uintCV(amount)],
+    postConditionMode: PostConditionMode.Allow,
+  });
+};
