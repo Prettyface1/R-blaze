@@ -4,3 +4,4 @@ import { memo } from 'react';
 import { memo } from 'react';
 export const Component1 = memo(() => {
   return null;
+});
