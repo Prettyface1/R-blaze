@@ -128,3 +128,5 @@
 (define-map user-stakes principal uint)
 (define-data-var total-staked uint u0)
 ;; Read-only functions
+(define-read-only (get-user-stake (user principal))
+  (default-to u0 (map-get? user-stakes user)))
