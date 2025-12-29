@@ -39,12 +39,12 @@ const main = () => {
     const totalBranchesNeeded = 80;
     const features = [];
 
-    for (let i = 1; i <= totalBranchesNeeded; i++) {
+    for (let i = 12; i <= totalBranchesNeeded; i++) {
         features.push(generateFeature(`Component ${i}`));
     }
 
     for (const feat of features) {
-        run(`git checkout -b ${feat.id}`);
+        run(`git checkout -B ${feat.id}`);
         for (const step of feat.steps) {
             const dir = path.dirname(step.file);
             if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -52,8 +52,18 @@ const main = () => {
             fs.appendFileSync(step.file, step.content);
             commit(step.msg);
         }
+
+        // Push and PR
+        run(`git push -u origin ${feat.id} --force`);
+
+        const prTitle = `${feat.id.startsWith('feat') ? 'Feature' : 'Docs'}: Implementation of ${feat.name}`;
+        const prBody = `## Overview\nThis PR introduces ${feat.name}.\n\n### Changes\n- Logic\n- Docs\n- Tests`;
+
+        run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id} --fill || true`);
+        run(`gh pr merge --merge --delete-branch || true`);
+
         run('git checkout main');
-        run(`git merge ${feat.id} --no-ff -m "Merge branch '${feat.id}'"`);
+        run('git pull origin main');
     }
 };
 
