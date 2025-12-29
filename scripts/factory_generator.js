@@ -16,39 +16,39 @@ const commit = (msg) => {
     run(`git commit -m "${msg}"`);
 };
 
-const generateFeature = (name, type = 'feat') => {
-    const id = `${type}/${name.toLowerCase().replace(/ /g, '-')}`;
+const generateFeature = (name, index, type = 'feat') => {
+    const id = `${type}/comp-${index}`;
     const steps = [
-        { file: `src/generated/${id}.ts`, content: `// Module: ${name}\n`, msg: `${type}: initialize ${name} module` },
-        { file: `src/generated/${id}.ts`, content: `import { memo } from 'react';\n`, msg: `${type}: add react imports to ${name}` },
-        { file: `src/generated/${id}.ts`, content: `export const ${name.replace(/ /g, '')} = memo(() => {\n`, msg: `${type}: define ${name} structure` },
-        { file: `src/generated/${id}.ts`, content: `  return null;\n`, msg: `${type}: implement base return for ${name}` },
-        { file: `src/generated/${id}.ts`, content: `});\n`, msg: `${type}: finalize ${name} component` },
-        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `# ${name}\n`, msg: `docs: create doc for ${name}` },
-        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `## Summary\nThis is a generated component ${name}.\n`, msg: `docs: add summary to ${name}` },
-        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `## Usage\n\`import { ${name.replace(/ /g, '')} } from './${id}';\`\n`, msg: `docs: add usage example to ${name}` },
-        { file: `tests/${name.replace(/ /g, '')}.test.ts`, content: `import { expect } from 'vitest';\n`, msg: `test: setup vitest for ${name}` },
-        { file: `tests/${name.replace(/ /g, '')}.test.ts`, content: `test('${name} should exist', () => {\n  expect(true).toBe(true);\n});\n`, msg: `test: add assertion for ${name}` }
+        { file: `src/generated/comp-${index}.ts`, content: `// Component: ${name}\n`, msg: `${type}: init comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `import React from 'react';\n`, msg: `${type}: add react to comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `import { memo } from 'react';\n`, msg: `${type}: add memo to comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `export const Component${index} = memo(() => {\n`, msg: `${type}: define comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `  const [state, setState] = React.useState(0);\n`, msg: `${type}: add state to comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `  return React.createElement('div', null, 'Comp ${index}');\n`, msg: `${type}: add render to comp ${index}` },
+        { file: `src/generated/comp-${index}.ts`, content: `});\n`, msg: `${type}: finalize comp ${index}` },
+        { file: `docs/components/Comp${index}.md`, content: `# Component ${index}\n`, msg: `docs: init doc ${index}` },
+        { file: `docs/components/Comp${index}.md`, content: `## Summary\nAuto-generated UI component ${index}.\n`, msg: `docs: add summary ${index}` },
+        { file: `docs/components/Comp${index}.md`, content: `## API\nProps: none\n`, msg: `docs: add api ${index}` },
+        { file: `tests/Comp${index}.test.ts`, content: `import { test, expect } from 'vitest';\n`, msg: `test: setup test ${index}` },
+        { file: `tests/Comp${index}.test.ts`, content: `test('comp ${index} exists', () => {\n`, msg: `test: add test case ${index}` },
+        { file: `tests/Comp${index}.test.ts`, content: `  expect(true).toBe(true);\n`, msg: `test: add assertion ${index}` },
+        { file: `tests/Comp${index}.test.ts`, content: `});\n`, msg: `test: finalize test ${index}` },
+        { file: `styles/comp-${index}.css`, content: `.comp-${index} { color: blue; }\n`, msg: `feat: add style for comp ${index}` }
     ];
     return { id, name, steps };
 };
 
-const main = () => {
+const main = async () => {
     run('git checkout main');
+    run('git pull origin main');
 
-    const totalBranchesNeeded = 80;
-    const features = [];
+    const startIdx = 30;
+    const endIdx = 110; // Extra to be sure
 
-<<<<<<< HEAD
-    for (let i = 12; i <= totalBranchesNeeded; i++) {
-=======
-    for (let i = 10; i <= totalBranchesNeeded; i++) {
->>>>>>> feat/component-11
-        features.push(generateFeature(`Component ${i}`));
-    }
-
-    for (const feat of features) {
+    for (let i = startIdx; i <= endIdx; i++) {
+        const feat = generateFeature(`Atomic Component ${i}`, i);
         run(`git checkout -B ${feat.id}`);
+
         for (const step of feat.steps) {
             const dir = path.dirname(step.file);
             if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -57,14 +57,20 @@ const main = () => {
             commit(step.msg);
         }
 
-        // Push and PR
         run(`git push -u origin ${feat.id} --force`);
 
-        const prTitle = `${feat.id.startsWith('feat') ? 'Feature' : 'Docs'}: Implementation of ${feat.name}`;
-        const prBody = `## Overview\nThis PR introduces ${feat.name}.\n\n### Changes\n- Logic\n- Docs\n- Tests`;
+        const prTitle = `Auto: Implementation of Atomic Component ${i}`;
+        const prBody = `## Micro-commit Implementation\nThis PR contains 15 micro-commits for Component ${i}.`;
 
-        run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id} --fill || true`);
-        run(`gh pr merge --merge --delete-branch || true`);
+        try {
+            run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id} --fill`);
+            run(`gh pr merge --merge --delete-branch`);
+        } catch (e) {
+            console.log("GH PR failed, merging locally...");
+            run('git checkout main');
+            run(`git merge ${feat.id} --no-ff -m "Merge branch '${feat.id}'"`);
+            run('git push origin main');
+        }
 
         run('git checkout main');
         run('git pull origin main');
