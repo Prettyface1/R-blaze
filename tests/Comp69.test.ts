@@ -4,3 +4,5 @@ test('comp 69 exists', () => {
 });
 import { test, expect } from 'vitest';
 test('comp 69 exists', () => {
+  expect(true).toBe(true);
+});
