@@ -4,3 +4,5 @@ Auto-generated UI component 50.
 ## API
 Props: none
 # Component 50
+## Summary
+Auto-generated UI component 50.
