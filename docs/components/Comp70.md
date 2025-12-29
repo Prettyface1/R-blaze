@@ -3,3 +3,4 @@
 Auto-generated UI component 70.
 ## API
 Props: none
+# Component 70
