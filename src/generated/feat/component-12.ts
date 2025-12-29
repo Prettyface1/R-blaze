@@ -12,3 +12,4 @@ export const Component12 = memo(() => {
 import { memo } from 'react';
 export const Component12 = memo(() => {
   return null;
+});
