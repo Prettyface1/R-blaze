@@ -1,0 +1,19 @@
+[project]
+name = 'R-blaze'
+description = 'R-blaze: High-performance research boosting platform on Stacks'
+authors = []
+telemetry = true
+cache_dir = '.\.cache'
+requirements = []
+[contracts.researchboost]
+path = 'contracts/researchboost.clar'
+clarity_version = 4
+epoch = 3.3
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false

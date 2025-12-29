@@ -1,0 +1,46 @@
+[
+  {
+    "id": "setup-base",
+    "name": "Base Configuration",
+    "tasks": [
+      "Initialize project structure",
+      "Configure tsconfig for React and Stacks",
+      "Set up tailwind configuration",
+      "Add base CSS with themes",
+      "Configure vite for Stacks development"
+    ]
+  },
+  {
+    "id": "contract-core",
+    "name": "Core Smart Contract",
+    "tasks": [
+      "Define error constants",
+      "Define state variables (owner, stakes)",
+      "Implement as-contract replacement logic",
+      "Verify Clarity 4 compatibility",
+      "Add epoch 3.3 configuration"
+    ]
+  },
+  {
+    "id": "stacks-connect",
+    "name": "Stacks Connect Integration",
+    "tasks": [
+      "Install @stacks/connect",
+      "Create Stacks Auth Context",
+      "Implement login function",
+      "Implement logout function",
+      "Display user principal"
+    ]
+  },
+  {
+    "id": "wallet-connect",
+    "name": "Wallet Connect v2",
+    "tasks": [
+      "Integrate WalletConnect SDK",
+      "Setup Project ID and Metadata",
+      "Implement connection modal",
+      "Handle session events",
+      "Sync WalletConnect with Stacks Connect"
+    ]
+  }
+]
