@@ -39,12 +39,12 @@ const main = () => {
     const totalBranchesNeeded = 80;
     const features = [];
 
-    for (let i = 1; i <= totalBranchesNeeded; i++) {
+    for (let i = 12; i <= totalBranchesNeeded; i++) {
         features.push(generateFeature(`Component ${i}`));
     }
 
     for (const feat of features) {
-        run(`git checkout -b ${feat.id}`);
+        run(`git checkout -B ${feat.id}`);
         for (const step of feat.steps) {
             const dir = path.dirname(step.file);
             if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -54,16 +54,16 @@ const main = () => {
         }
 
         // Push and PR
-        run(`git push origin ${feat.id} --force`);
+        run(`git push -u origin ${feat.id} --force`);
 
         const prTitle = `${feat.id.startsWith('feat') ? 'Feature' : 'Docs'}: Implementation of ${feat.name}`;
-        const prBody = `## Overview\nThis PR introduces ${feat.name} to the R-blaze core. It follows our micro-commit strategy to ensure granular version control and maintainability.\n\n### Changes\n- Created ${feat.name} component logic\n- Added comprehensive documentation in markdown\n- Implemented unit tests with vitest\n\n### Impact\nImproves the modularity of the generated UI components and strengthens the test suite.`;
+        const prBody = `## Overview\nThis PR introduces ${feat.name}.\n\n### Changes\n- Logic\n- Docs\n- Tests`;
 
-        run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id}`);
-        run(`gh pr merge --merge --delete-branch`);
+        run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id} --fill || true`);
+        run(`gh pr merge --merge --delete-branch || true`);
 
         run('git checkout main');
-        run('git pull origin main'); // Ensure we are in sync
+        run('git pull origin main');
     }
 };
 
