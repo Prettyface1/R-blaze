@@ -9,3 +9,4 @@ export const Component55 = memo(() => {
 import React from 'react';
 import { memo } from 'react';
 export const Component55 = memo(() => {
+  const [state, setState] = React.useState(0);
