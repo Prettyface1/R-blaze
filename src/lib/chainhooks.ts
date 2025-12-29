@@ -6,3 +6,7 @@ const client = new ChainhooksClient({
 export const registerResearchHook = async (projectId: string) => {
   await client.register({
     name: `research-boost-${projectId}`,
+    chain: 'stacks',
+    network: 'mainnet',
+  });
+};
