@@ -126,3 +126,4 @@
 (define-constant CONTRACT-OWNER tx-sender)
 ;; Core data maps
 (define-map user-stakes principal uint)
+(define-data-var total-staked uint u0)

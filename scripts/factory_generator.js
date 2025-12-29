@@ -20,11 +20,15 @@ const generateFeature = (name, type = 'feat') => {
     const id = `${type}/${name.toLowerCase().replace(/ /g, '-')}`;
     const steps = [
         { file: `src/generated/${id}.ts`, content: `// Module: ${name}\n`, msg: `${type}: initialize ${name} module` },
-        { file: `src/generated/${id}.ts`, content: `export const ${name.replace(/ /g, '')} = () => {\n`, msg: `${type}: define ${name} structure` },
-        { file: `src/generated/${id}.ts`, content: `  console.log('${name} initialized');\n`, msg: `${type}: add logic to ${name}` },
-        { file: `src/generated/${id}.ts`, content: `};\n`, msg: `${type}: finalize ${name} component` },
-        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `# ${name}\nDocumentation for ${name}.\n`, msg: `docs: add documentation for ${name}` },
-        { file: `tests/${name.replace(/ /g, '')}.test.ts`, content: `describe('${name}', () => { it('works', () => {}) });\n`, msg: `test: add unit test for ${name}` }
+        { file: `src/generated/${id}.ts`, content: `import { memo } from 'react';\n`, msg: `${type}: add react imports to ${name}` },
+        { file: `src/generated/${id}.ts`, content: `export const ${name.replace(/ /g, '')} = memo(() => {\n`, msg: `${type}: define ${name} structure` },
+        { file: `src/generated/${id}.ts`, content: `  return null;\n`, msg: `${type}: implement base return for ${name}` },
+        { file: `src/generated/${id}.ts`, content: `});\n`, msg: `${type}: finalize ${name} component` },
+        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `# ${name}\n`, msg: `docs: create doc for ${name}` },
+        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `## Summary\nThis is a generated component ${name}.\n`, msg: `docs: add summary to ${name}` },
+        { file: `docs/features/${name.replace(/ /g, '')}.md`, content: `## Usage\n\`import { ${name.replace(/ /g, '')} } from './${id}';\`\n`, msg: `docs: add usage example to ${name}` },
+        { file: `tests/${name.replace(/ /g, '')}.test.ts`, content: `import { expect } from 'vitest';\n`, msg: `test: setup vitest for ${name}` },
+        { file: `tests/${name.replace(/ /g, '')}.test.ts`, content: `test('${name} should exist', () => {\n  expect(true).toBe(true);\n});\n`, msg: `test: add assertion for ${name}` }
     ];
     return { id, name, steps };
 };
