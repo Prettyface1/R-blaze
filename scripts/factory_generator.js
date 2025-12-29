@@ -39,7 +39,7 @@ const main = () => {
     const totalBranchesNeeded = 80;
     const features = [];
 
-    for (let i = 1; i <= totalBranchesNeeded; i++) {
+    for (let i = 10; i <= totalBranchesNeeded; i++) {
         features.push(generateFeature(`Component ${i}`));
     }
 
