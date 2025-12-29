@@ -2,3 +2,4 @@
 import React from 'react';
 import { memo } from 'react';
 export const Component78 = memo(() => {
+  const [state, setState] = React.useState(0);
