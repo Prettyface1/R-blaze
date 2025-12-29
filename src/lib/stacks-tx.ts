@@ -5,3 +5,4 @@ export const contributeToResearch = async (amount: number) => {
     contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     contractName: 'R-blaze',
     functionName: 'fund-project',
+    functionArgs: [uintCV(amount)],
