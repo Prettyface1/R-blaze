@@ -123,3 +123,4 @@
 (define-constant ERR-UNAUTHORIZED (err u100))
 (define-constant ERR-INVALID-AMOUNT (err u101))
 (define-constant ERR-NOT-FOUND (err u102))
+(define-constant CONTRACT-OWNER tx-sender)
