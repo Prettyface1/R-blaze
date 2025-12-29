@@ -52,8 +52,18 @@ const main = () => {
             fs.appendFileSync(step.file, step.content);
             commit(step.msg);
         }
+
+        // Push and PR
+        run(`git push origin ${feat.id} --force`);
+
+        const prTitle = `${feat.id.startsWith('feat') ? 'Feature' : 'Docs'}: Implementation of ${feat.name}`;
+        const prBody = `## Overview\nThis PR introduces ${feat.name} to the R-blaze core. It follows our micro-commit strategy to ensure granular version control and maintainability.\n\n### Changes\n- Created ${feat.name} component logic\n- Added comprehensive documentation in markdown\n- Implemented unit tests with vitest\n\n### Impact\nImproves the modularity of the generated UI components and strengthens the test suite.`;
+
+        run(`gh pr create --title "${prTitle}" --body "${prBody}" --base main --head ${feat.id}`);
+        run(`gh pr merge --merge --delete-branch`);
+
         run('git checkout main');
-        run(`git merge ${feat.id} --no-ff -m "Merge branch '${feat.id}'"`);
+        run('git pull origin main'); // Ensure we are in sync
     }
 };
 
