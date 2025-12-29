@@ -4,3 +4,5 @@ const client = new ChainhooksClient({
   baseUrl: 'https://api.hiro.so',
 });
 export const registerResearchHook = async (projectId: string) => {
+  await client.register({
+    name: `research-boost-${projectId}`,
