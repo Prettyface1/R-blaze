@@ -5,3 +5,4 @@ export const Component64 = memo(() => {
   const [state, setState] = React.useState(0);
   return React.createElement('div', null, 'Comp 64');
 });
+// Component: Atomic Component 64
