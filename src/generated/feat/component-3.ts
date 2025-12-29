@@ -7,3 +7,4 @@ export const Component3 = memo(() => {
 import { memo } from 'react';
 export const Component3 = memo(() => {
   return null;
+});
