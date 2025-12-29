@@ -7,3 +7,4 @@ export const Component76 = memo(() => {
 });
 // Component: Atomic Component 76
 import React from 'react';
+import { memo } from 'react';
