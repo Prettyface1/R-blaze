@@ -6,3 +6,5 @@ export const initWalletConnect = async () => {
     showQrModal: true,
     chains: [1],
   });
+  return provider;
+};
