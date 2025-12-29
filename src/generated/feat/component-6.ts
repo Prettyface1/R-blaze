@@ -5,3 +5,4 @@ export const Component6 = memo(() => {
 });
 // Module: Component 6
 import { memo } from 'react';
+export const Component6 = memo(() => {
