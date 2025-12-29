@@ -130,3 +130,5 @@
 ;; Read-only functions
 (define-read-only (get-user-stake (user principal))
   (default-to u0 (map-get? user-stakes user)))
+(define-read-only (get-total-staked)
+  (var-get total-staked))
